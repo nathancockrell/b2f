@@ -6,150 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>B2BandC</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            padding: 16px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            background: #007BFF;
-            color: white;
-            padding: 16px;
-        }
-
-        header button {
-            background: white;
-            color: #007BFF;
-            border: none;
-            padding: 8px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        form label {
-            margin-top: 12px;
-        }
-
-        form input, form textarea {
-            padding: 8px;
-            margin-top: 4px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .entry-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .entry {
-            padding: 16px;
-            border: 1px solid #ddd;
-            margin-top: 8px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .entry:hover {
-            background: #f9f9f9;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow-y: scroll;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            /* align-items: center; */
-        }
-
-        .modal-content {
-            background: white;
-            padding: 16px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 500px;
-            height:fit-content;
-            position: relative;
-        }
-
-        #submit {
-            font-size: large;
-            padding: 1rem;
-        }
-
-        #stats {
-            margin-top: 16px;
-        }
-
-        #modalClose {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #formScreenInitial {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-        }
-
-        #formScreenInitial button {
-            padding: 12px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        #formScreenInitial button.new-form {
-            background: #007BFF;
-            color: white;
-        }
-
-        #formScreenInitial button.open-form {
-            /* background: #28a745;
-            color: white; */
-        }
-
-        #notes {
-            height: 80px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -160,6 +17,7 @@
             <button id="statsView">Stats</button>
         </div>
     </header>
+
     <div id="formModal" class="modal hidden">
         <div class="modal-content">
             <button id="modalClose">&times;</button>
@@ -203,6 +61,53 @@
             </form>
         </div>
     </div>
+    <div id="formModalEdit" class="modal hidden">
+        <div class="modal-content">
+            <button id="modalCloseEdit">&times;</button>
+            <form id="submissionFormEdit">
+                <input type="text" id="idEdit" readonly style="display: none;">
+                <h1>Edit Interaction</h1>
+                <label for="identifierEdit">Title of Interaction</label>
+                <input type="text" id="identifierEdit" name="identifierEdit">
+                <label for="dateCreatedEdit">Date and time</label>
+                <input type="datetime-local" id="dateCreatedEdit" name="dateCreatedEdit">
+                <label for="notesEdit">Notes</label>
+                <textarea id="notesEdit" name="notesEdit"></textarea>
+                <h3>Contact Info</h3>
+                <label for="nameEdit">Name</label>
+                <input type="text" id="nameEdit" name="nameEdit">
+                <label for="phoneEdit">Phone</label>
+                <input type="text" id="phoneEdit" name="phoneEdit">
+                <label for="emailEdit">Email</label>
+                <input type="text" id="emailEdit" name="emailEdit">
+
+                
+
+                <label for="sentQuoteEdit">Sent Quote</label>
+                <input type="checkbox" id="sentQuoteEdit" name="sentQuoteEdit">
+
+                <label for="isBusinessEdit">Associated with Business?</label>
+                <input type="checkbox" id="isBusinessEdit" name="isBusinessEdit">
+                <label for="businessEdit">Business Name</label>
+                <input type="text" id="businessEdit" name="businessEdit">
+                
+                <label for="locationEdit">Address</label>
+                <input type="textarea" id="locationEdit" name="locationEdit">
+                
+                
+                
+                <label for="followUpDateEdit">Reminder</label>
+                <input type="datetime-local" id="followUpDateEdit" name="followUpDateEdit">
+                <label for="futureActionsEdit">Action</label>
+                <input type="text" id="futureActionsEdit" name="futureActionsEdit">
+
+                <button id="delete-btn">Delete interaction</button>
+
+                <button type="submit" id="submitEdit">Save</button>
+            </form>
+        </div>
+    </div>
+    
     <div id="formScreen" class="container">
         <div id="formScreenInitial">
             <button class="new-form" id="newFormBtn">New Interaction</button>
@@ -216,12 +121,16 @@
 
         <label for="filterByDate">Filter by Date Created</label>
         <input type="date" id="filterByDate">
-
+        <!-- Today, Daily, This week, Next week, This month,  -->
+        <p>To-Do</p>
+        <div class="entry-list" id="todoList"></div>
+        <p>Entries</p>
         <div class="entry-list" id="entryList"></div>
     </div>
 
     <div id="statsScreen" class="container hidden">
         <h2>Statistics</h2>
+        <h1>!UNDER CONSTRUCTION!</h1>
         <div id="stats">
             <p>Total Entries: <span id="totalEntries">0</span></p>
             <p>Entries with Identifier: <span id="entriesWithIdentifier">0</span></p>
@@ -232,216 +141,7 @@
         <div class="entry-list" id="statsEntryList"></div>
     </div>
 
-    <script>
-        const formViewBtn = document.getElementById('formView');
-        const listViewBtn = document.getElementById('listView');
-        const statsViewBtn = document.getElementById('statsView');
-        const formScreen = document.getElementById('formScreen');
-        const listScreen = document.getElementById('listScreen');
-        const statsScreen = document.getElementById('statsScreen');
-        const submissionForm = document.getElementById('submissionForm');
-        const entryList = document.getElementById('entryList');
-        const statsEntryList = document.getElementById('statsEntryList');
-        const totalEntries = document.getElementById('totalEntries');
-        const entriesWithIdentifier = document.getElementById('entriesWithIdentifier');
-        const modal = document.getElementById('formModal');
-        const newFormBtn = document.getElementById('newFormBtn');
-        const openFormBtn = document.getElementById('openFormBtn');
-        const modalClose = document.getElementById('modalClose');
-    
-        let entries = JSON.parse(localStorage.getItem('entries')) || [];
-    
-        const switchView = (view) => {
-            formScreen.classList.add('hidden');
-            listScreen.classList.add('hidden');
-            statsScreen.classList.add('hidden');
-            if (view === 'form') formScreen.classList.remove('hidden');
-            if (view === 'list') listScreen.classList.remove('hidden');
-            if (view === 'stats') statsScreen.classList.remove('hidden');
-        };
-    
-        formViewBtn.addEventListener('click', () => switchView('form'));
-        listViewBtn.addEventListener('click', () => switchView('list'));
-        statsViewBtn.addEventListener('click', () => {
-            updateStats();
-            switchView('stats');
-        });
-    
-        newFormBtn.addEventListener('click', () => {
-            submissionForm.reset();
-            const now = new Date();
-
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1; // Months are 0-indexed
-            const day = now.getDate();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-
-            const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-        
-            console.log(formattedDate); // e.g., "2025-01-02"
-            console.log(formattedDate + formattedTime); // e.g., "01:59:00"
-            console.log(new Date().toISOString().slice(0,-8))
-            document.getElementById('dateCreated').value = formattedDate +'T'+ formattedTime;
-            manageDeleteButton(false);
-            modal.classList.remove('hidden');
-            modal.scrollTo(0, 0); // Scroll to the top of the form
-        });
-    
-        openFormBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            manageDeleteButton(false);
-            modal.scrollTo(0, 0); // Scroll to the top of the form
-        });
-    
-        modalClose.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
-    
-        submissionForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-    
-            const entry = {
-                id: Date.now(),
-                identifier: document.getElementById('identifier').value,
-                dateCreated: document.getElementById('dateCreated').value,
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                isBusiness: document.getElementById('isBusiness').checked,
-                business: document.getElementById('business').value,
-                location: document.getElementById('location').value,
-                sentQuote: document.getElementById('sentQuote').checked,
-                notes: document.getElementById('notes').value,
-                futureActions: document.getElementById('futureActions').value,
-                followUpDate: document.getElementById('followUpDate').value
-            };
-    
-            const existingIndex = entries.findIndex((e) => e.id === entry.id);
-            if (existingIndex !== -1) {
-                entries[existingIndex] = entry; // Update existing
-            } else {
-                entries.push(entry); // Add new
-            }
-    
-            saveToLocalStorage();
-            updateEntryList();
-            modal.classList.add('hidden');
-            submissionForm.reset();
-        });
-    
-        const updateEntryList = () => {
-            console.log("updated entry list")
-            entryList.innerHTML = '';
-            const currentWeek = new Date();
-            const startOfWeek = new Date(currentWeek.setDate(currentWeek.getDate() - currentWeek.getDay()));
-            entries = JSON.parse(localStorage.getItem('entries')) || [];
-            entries.filter(entry => new Date(entry.dateCreated) >= startOfWeek).forEach(entry => {
-                const div = document.createElement('div');
-                div.className = 'entry';
-                div.textContent = `${entry.dateCreated} - ${entry.identifier}`;
-                div.addEventListener('click', () => editEntry(entry.id));
-                div.dataset.entryId = entry.id; // add entry id for easy access
-                entryList.appendChild(div);
-            });
-        };
-    
-        const editEntry = (id) => {
-            const entry = entries.find((e) => e.id === id);
-            if (!entry) return;
-    
-            // Populate the form with the entry data
-            Object.keys(entry).forEach((key) => {
-                const input = document.getElementById(key);
-                if (input) {
-                    if (input.type === 'checkbox') {
-                        input.checked = entry[key];
-                    } else {
-                        input.value = entry[key];
-                    }
-                }
-            });
-            // console.log("entry", entry)
-            manageDeleteButton(true, entry.id); // Show delete button for existing entry
-            modal.classList.remove('hidden');
-            modal.scrollTo(0, 0);
-        };
-
-        const manageDeleteButton = (shouldShow, entryId) => {
-            let deleteButton = document.getElementById('deleteEntry');
-            if (shouldShow) {
-                if (!deleteButton) {
-                    deleteButton = document.createElement('button');
-                    deleteButton.id = 'deleteEntry';
-                    deleteButton.textContent = 'Delete Interaction';
-                    deleteButton.style.background = '#ff4d4d';
-                    deleteButton.style.color = 'white';
-                    deleteButton.style.border = 'none';
-                    deleteButton.style.padding = '8px';
-                    deleteButton.style.marginTop = '12px';
-                    deleteButton.style.borderRadius = '4px';
-                    deleteButton.style.cursor = 'pointer';
-                    submissionForm.appendChild(deleteButton);
-
-                    deleteButton.addEventListener('click', () => {
-                        console.log(entries)
-
-                        entries = entries.filter(entry => entry.id !== entryId);
-                        console.log(entries)
-                        localStorage.setItem('entries', JSON.stringify(entries));
-                        console.log(localStorage.getItem('entries'))
-                        deleteEntry(entryId)
-                        console.log("pre update check")
-                        updateEntryList();
-                        modal.classList.add('hidden');
-                    });
-                }
-            } else if (deleteButton) {
-                deleteButton.remove();
-            }
-        };
-    
-        const deleteEntry = (id) => {
-            entries = entries.filter((e) => e.id !== id);
-            saveToLocalStorage();
-            updateEntryList();
-            modal.classList.add('hidden');
-        };
-    
-        const saveToLocalStorage = () => {
-            localStorage.setItem('entries', JSON.stringify(entries));
-        };
-    
-        const updateStats = () => {
-            totalEntries.textContent = entries.length;
-            entriesWithIdentifier.textContent = entries.filter(entry => entry.identifier).length;
-        };
-    
-        // Add delete button logic
-        // const deleteButton = document.createElement('button');
-        // deleteButton.textContent = 'Delete Entry';
-        // deleteButton.style.background = '#ff4d4d';
-        // deleteButton.style.color = 'white';
-        // deleteButton.style.padding = '10px';
-        // deleteButton.style.marginTop = '10px';
-        // deleteButton.style.border = 'none';
-        // deleteButton.style.borderRadius = '4px';
-        // deleteButton.style.cursor = 'pointer';
-        // submissionForm.appendChild(deleteButton);
-    
-        // deleteButton.addEventListener('click', () => {
-        //     const id = parseInt(document.getElementById('identifier').value, 10);
-        //     if (id) {
-        //         deleteEntry(id);
-        //     }
-        // });
-    
-        // Initial load
-        updateEntryList();
-        updateStats();
-    </script>
+    <script src="main.js"></script>
     
 </body>
 </html>
