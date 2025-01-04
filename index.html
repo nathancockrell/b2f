@@ -169,6 +169,8 @@
                 <input type="text" id="identifier" name="identifier">
                 <label for="dateCreated">Date and time</label>
                 <input type="datetime-local" id="dateCreated" name="dateCreated">
+                <label for="notes">Notes</label>
+                <textarea id="notes" name="notes"></textarea>
                 <h3>Contact Info</h3>
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name">
@@ -177,8 +179,7 @@
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email">
 
-                <label for="notes">Notes</label>
-                <textarea id="notes" name="notes"></textarea>
+                
 
                 <label for="sentQuote">Sent Quote</label>
                 <input type="checkbox" id="sentQuote" name="sentQuote">
@@ -188,17 +189,15 @@
                 <label for="business">Business Name</label>
                 <input type="text" id="business" name="business">
                 
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location">
-
+                <label for="location">Address</label>
+                <input type="textarea" id="location" name="location">
                 
                 
                 
-                
-                <label for="futureActions">Future Actions</label>
-                <input type="text" id="futureActions" name="futureActions">
-                <label for="followUpDate">Follow-Up Date</label>
+                <label for="followUpDate">Reminder</label>
                 <input type="datetime-local" id="followUpDate" name="followUpDate">
+                <label for="futureActions">Action</label>
+                <input type="text" id="futureActions" name="futureActions">
 
                 <button type="submit" id="submit">Record Interaction</button>
             </form>
@@ -272,19 +271,19 @@
             submissionForm.reset();
             const now = new Date();
 
-const year = now.getFullYear();
-const month = now.getMonth() + 1; // Months are 0-indexed
-const day = now.getDate();
-const hours = now.getHours();
-const minutes = now.getMinutes();
-const seconds = now.getSeconds();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1; // Months are 0-indexed
+            const day = now.getDate();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
 
-const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         
-console.log(formattedDate); // e.g., "2025-01-02"
-console.log(formattedDate + formattedTime); // e.g., "01:59:00"
-console.log(new Date().toISOString().slice(0,-8))
+            console.log(formattedDate); // e.g., "2025-01-02"
+            console.log(formattedDate + formattedTime); // e.g., "01:59:00"
+            console.log(new Date().toISOString().slice(0,-8))
             document.getElementById('dateCreated').value = formattedDate +'T'+ formattedTime;
             manageDeleteButton(false);
             modal.classList.remove('hidden');
