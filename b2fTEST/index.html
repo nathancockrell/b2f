@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2F</title>
+</head>
+<body>
+    <h1>b2f</h1>
+    <div id="app">
+        <!-- Login -->
+        <input type="text" id="login-code" placeholder="Enter Login Code" />
+        <button id="login-btn">Login</button>
+    
+        <!-- Data Operations -->
+        <div id="data-section" style="display:none;">
+          <input type="text" id="data-input" placeholder="Enter Data" />
+          <button id="save-btn">Save Data</button>
+          <button id="delete-btn">Delete Data</button>
+          <button id="edit-btn">Edit Data</button>
+          <div id="data-section" style="display:none;">
+            <input type="text" id="data-input" placeholder="Enter Data" />
+            <button id="save-btn">Save Data</button>
+            <ul id="data-list"></ul> <!-- List to display saved data -->
+          </div>
+        </div>
+    
+        <div id="output"></div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
